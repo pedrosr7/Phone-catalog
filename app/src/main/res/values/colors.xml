@@ -11,5 +11,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="lightBlue800">#0277bd</color>
+    <color name="teal800">#00695c</color>
+
+
+
     <color name="colorSelected">#546e7a</color>
 </resources>

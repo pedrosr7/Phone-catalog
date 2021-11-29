@@ -4,10 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable-v24/shape_round_dialog.xml" value="0.1703125" />
+        <entry key="app/src/main/res/drawable/ic_add_phone.xml" value="0.1787037037037037" />
         <entry key="app/src/main/res/drawable/shape_round_modal.xml" value="0.1703125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/form_fragment.xml" value="0.24623115577889448" />
-        <entry key="app/src/main/res/layout/item_phone.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_phone.xml" value="0.1475018944520434" />
       </map>
     </option>
   </component>

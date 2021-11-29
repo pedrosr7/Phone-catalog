@@ -10,4 +10,6 @@ data class Phone(
     val screen: String,
     val processor: String,
     val ram: Int
-)
+) : Comparable<Phone> {
+    override fun compareTo(other: Phone): Int = id.compareTo(other.id)
+}
