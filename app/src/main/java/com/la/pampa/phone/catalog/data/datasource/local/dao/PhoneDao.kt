@@ -5,15 +5,16 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.la.pampa.phone.catalog.data.datasource.local.model.PhoneEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PhoneDao {
     @Query("SELECT * FROM phone")
-    fun getAll(): List<PhoneEntity>
+    fun getAll(): Flow<List<PhoneEntity>>
 
     @Insert
-    fun insertAll(vararg phone: PhoneEntity)
+    suspend fun insertAll(vararg phone: PhoneEntity)
 
     @Delete
-    fun delete(phone: PhoneEntity)
+    suspend fun delete(phone: PhoneEntity)
 }

@@ -6,7 +6,8 @@ data class Phone(
     val manufacturer: String,
     val description: String,
     val price: Int,
-    val imageFileName: String,
+    val imageFileName: String?,
+    val imageFile: String?,
     val screen: String,
     val processor: String,
     val ram: Int

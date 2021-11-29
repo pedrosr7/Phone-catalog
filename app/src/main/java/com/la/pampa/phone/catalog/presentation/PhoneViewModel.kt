@@ -11,6 +11,8 @@ import com.la.pampa.phone.catalog.domain.dto.PhoneDto
 import com.la.pampa.phone.catalog.domain.models.Phone
 import com.la.pampa.phone.catalog.domain.usecases.GetPhonesUseCases
 import com.la.pampa.phone.catalog.domain.usecases.SavePhoneUseCases
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class PhoneViewModel(
     private val getPhonesUseCases: GetPhonesUseCases
@@ -26,7 +28,13 @@ class PhoneViewModel(
 
     fun getPhones() {
         showLoading.postValue(true)
-        getPhonesUseCases.invoke(viewModelScope) { res ->
+        viewModelScope.launch {
+            getPhonesUseCases.invoke().collect {
+                _phones.value = it
+            }
+        }
+
+    /*{ res ->
             showLoading.postValue(false)
             res.doIfSuccess {
                 _phones.value = it
@@ -35,7 +43,7 @@ class PhoneViewModel(
             res.doIfFailure { _, throwable ->
                 showError.postValue(throwable)
             }
-        }
+        }*/
     }
 
 

@@ -1,20 +1,9 @@
 package com.la.pampa.phone.catalog.presentation.common
 
+import android.view.View
 import androidx.databinding.BindingAdapter
-import androidx.databinding.InverseBindingAdapter
 
-/*
-@BindingAdapter("text")
-@JvmStatic fun setText(view: TextInputComponent, text: String?) {
-    text?.let {
-        if(view.binding.editTextInput.text.toString() != it) {
-            // val textOutput = view.binding.prefixLabel.text.toString()+it
-            view.binding.editTextInput.setText(it)
-        }
-    }
+@BindingAdapter("visible")
+fun View.setVisible(visible: Boolean) {
+    visibility = if(visible) View.VISIBLE else View.GONE
 }
-
-@InverseBindingAdapter(attribute = "text")
-@JvmStatic fun getText(view: TextInputComponent): String {
-    return view.binding.editTextInput.text.toString()
-}*/

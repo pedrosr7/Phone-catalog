@@ -17,7 +17,9 @@ data class PhoneEntity(
     @ColumnInfo(name = "price")
     val price: Int,
     @ColumnInfo(name = "imageFileName")
-    val imageFileName: String,
+    val imageFileName: String?,
+    @ColumnInfo(name = "imageData")
+    val imageFile: String?,
     @ColumnInfo(name = "screen")
     val screen: String,
     @ColumnInfo(name = "processor")

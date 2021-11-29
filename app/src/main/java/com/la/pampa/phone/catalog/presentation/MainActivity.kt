@@ -1,14 +1,13 @@
 package com.la.pampa.phone.catalog.presentation
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.card.MaterialCardView
 import com.la.pampa.phone.catalog.R
 import com.la.pampa.phone.catalog.databinding.ActivityMainBinding
 import com.la.pampa.phone.catalog.domain.models.Phone
@@ -17,13 +16,18 @@ import com.la.pampa.phone.catalog.presentation.form.FormDialogFragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import thevoid.whichbinds.dslist.listDSL
+import java.lang.Byte.decode
+import java.util.*
+import android.graphics.BitmapFactory
+
+import android.graphics.Bitmap
+import android.net.Uri
+
 
 class MainActivity : AppCompatActivity() {
 
-
     private val viewModel by viewModel<PhoneViewModel>()
     private lateinit var binding: ActivityMainBinding
-
 
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,6 +96,25 @@ class MainActivity : AppCompatActivity() {
                                 processor?.text = value?.processor ?: ""
                                 ram?.text = "${value?.ram ?: "" } de ram"
                                 screen?.text = "${value?.screen ?: "" }'"
+
+                                value?.imageFile?.let {
+                                    /*val data = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                        Base64.getDecoder().decode(it)
+                                    } else {
+                                        android.util.Base64.decode(it.toByteArray(charset("UTF-8")), android.util.Base64.DEFAULT)
+                                    }*/
+
+                                    val data = android.util.Base64.decode(it.toByteArray(charset("UTF-8")), android.util.Base64.DEFAULT)
+
+                                    val bitmap = BitmapFactory.decodeByteArray(
+                                        data, 0, data.size
+                                    )
+
+
+                                    phoneImage?.setImageURI(Uri.parse(it))
+
+                                   // phoneImage?.setImageBitmap(bitmap)
+                                }
 
                                 itemView.setOnClickListener {
 

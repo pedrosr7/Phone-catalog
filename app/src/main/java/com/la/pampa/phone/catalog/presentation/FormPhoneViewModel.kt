@@ -5,11 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.la.pampa.phone.catalog.core.extensions.doIfFailure
 import com.la.pampa.phone.catalog.core.extensions.doIfSuccess
-import com.la.pampa.phone.catalog.core.extensions.toMillis
 import com.la.pampa.phone.catalog.core.plataform.SingleLiveEvent
 import com.la.pampa.phone.catalog.domain.dto.PhoneDto
 import com.la.pampa.phone.catalog.domain.usecases.SavePhoneUseCases
-import java.time.LocalDateTime
 
 class FormPhoneViewModel(
     private val savePhoneUseCases: SavePhoneUseCases
@@ -17,6 +15,11 @@ class FormPhoneViewModel(
 
     val showLoading = SingleLiveEvent<Boolean>()
     val showError = SingleLiveEvent<Throwable>()
+    val dismiss = SingleLiveEvent<Unit>()
+
+    var photoName: String? = null
+    var photoBase64: String? = null
+    var photoUri: String? = null
 
     private val _name: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
@@ -79,7 +82,8 @@ class FormPhoneViewModel(
             manufacturer = manufacturer.value ?: "",
             description = description.value ?: "",
             price = price.value?.toInt() ?: 0,
-            imageFileName =  "",
+            imageFileName = photoName,
+            imageFile = photoUri,
             screen = screen.value ?: "",
             processor = processor.value ?: "",
             ram = ram.value?.toInt() ?: 0
@@ -87,7 +91,17 @@ class FormPhoneViewModel(
         ) { res ->
             showLoading.postValue(false)
             res.doIfSuccess {
+                name.value = null
+                manufacturer.value = null
+                description.value = null
+                price.value = null
+                photoName = null
+                photoUri = null
+                screen.value = null
+                processor.value = null
+                ram.value = null
 
+                dismiss.callAsync()
             }
             res.doIfFailure { _, throwable ->
                 showError.postValue(throwable)
